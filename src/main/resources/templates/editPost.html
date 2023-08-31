@@ -68,17 +68,17 @@
     <input name="id" th:value="${post.id}" type="hidden">
 
     <label for="title">Title : </label>
-    <input id="title" name="title" required th:value="${post.title}" type="text">
+    <input id="title" name="title" required th:value="${post.title}" type="text"><br>
 
     <label for="content">Content : </label>
-    <input id="content" name="content" required th:value="${post.content}" type="text">
+    <input id="content" name="content" required th:value="${post.content}" type="text"><br>
 
     <label for="author">Author : </label>
-    <input id="author" name="author" required th:value="${post.author}" type="text">
+    <input id="author" name="author" required th:value="${post.author}" readonly type="text"><br>
 
     <label for="tag">Tags : </label>
     <input id="tag" name="tag" placeholder="Enter tags separated by comma" required
-           th:value="${tagNames}" type="text">
+           th:value="${tagNames}" type="text"><br>
 
     <button type="submit">Update Post</button>
 </form>
