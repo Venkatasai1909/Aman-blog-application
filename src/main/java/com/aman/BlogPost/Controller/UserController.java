@@ -35,7 +35,6 @@ public class UserController {
             String password = user.getPassword();
             user.setPassword("{noop}" + password);
             user.setAuthority("ROLE_AUTHOR");
-            user.setEnabled(true);
             userRepository.save(user);
             return "redirect:/loginForm";
         }

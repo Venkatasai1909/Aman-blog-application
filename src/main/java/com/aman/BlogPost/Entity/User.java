@@ -25,9 +25,6 @@ public class User {
     @Column(name = "authority")
     private String authority;
 
-    @Column(name = "enabled")
-    private boolean enabled;
-
     public int getId() {
         return id;
     }
@@ -68,14 +65,6 @@ public class User {
         this.authority = authority;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -84,7 +73,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", authority='" + authority + '\'' +
-                ", enabled=" + enabled +
                 '}';
     }
 }

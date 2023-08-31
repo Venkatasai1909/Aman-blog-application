@@ -70,27 +70,27 @@
 <!--        You have been logged out.-->
 <!--    </div>-->
 
-    <div class="login-page">
-        <div class="form">
-            <div class="login">
-                <div login-header>
-                    <h3>Login Form</h3>
-                </div>
+<div class="login-page">
+    <div class="form">
+        <div class="login">
+            <div login-header>
+                <h3>Login Form</h3>
             </div>
-
-            <form class="login-form" th:action="@{/authenticateTheUser}" method="post">
-
-                <input type="text" placeholder="username" name="username" required><br><br>
-
-                <input type="password" placeholder="password" name="password" required><br><br>
-
-                <input type="submit" value="Login">
-
-                <p class="message">Don't have an account?
-                    <a th:href="@{/signUpForm}">Create one</a>
-                </p>
-            </form>
         </div>
+
+        <form class="login-form" method="post" th:action="@{/authenticateTheUser}">
+
+            <input name="username" placeholder="username" required type="text"><br><br>
+
+            <input name="password" placeholder="password" required type="password"><br><br>
+
+            <input type="submit" value="Login">
+
+            <p class="message">Don't have an account?
+                <a th:href="@{/signUpForm}">Create one</a>
+            </p>
+        </form>
     </div>
+</div>
 </body>
 </html>

@@ -1,467 +1,7 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml"-->
-<!--      xmlns:th="http://www.thymeleaf.org"-->
-<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
-
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Post List</title>-->
-<!--    <style>-->
-<!--        body {-->
-<!--            font-family: Arial, sans-serif;-->
-<!--            margin: 20px;-->
-<!--            padding: 0;-->
-<!--            background-color: #f0f0f0;-->
-<!--        }-->
-<!--        h2 {-->
-<!--            color: #333;-->
-<!--        }-->
-<!--        table {-->
-<!--            width: 100%;-->
-<!--            border-collapse: collapse;-->
-<!--            margin-top: 20px;-->
-<!--        }-->
-
-<!--        table, tr.page-item, th {-->
-<!--            border: 1px solid #ddd;-->
-<!--        }-->
-
-<!--        th {-->
-<!--            background-color: #f2f2f2;-->
-<!--            padding: 10px;-->
-<!--            text-align: left;-->
-<!--        }-->
-
-<!--        td {-->
-<!--            padding: 10px;-->
-<!--        }-->
-<!--        a.page-link {-->
-<!--            text-decoration: none;-->
-<!--            color: #007bff;-->
-<!--            margin-right: 10px;-->
-<!--        }-->
-
-<!--        a.page-link:hover {-->
-<!--            text-decoration: underline;-->
-<!--            color: #0056b3;-->
-<!--        }-->
-<!--        .confirmation-message {-->
-<!--            color: #ff0000;-->
-<!--            font-weight: bold;-->
-<!--        }-->
-<!--        a.create-post-link {-->
-<!--            display: block;-->
-<!--            margin-top: 20px;-->
-<!--            background-color: #007bff;-->
-<!--            color: #fff;-->
-<!--            padding: 10px 20px;-->
-<!--            border-radius: 5px;-->
-<!--            text-align: center;-->
-<!--            text-decoration: none;-->
-<!--        }-->
-
-<!--        a.create-post-link:hover {-->
-<!--            background-color: #0056b3;-->
-<!--        }-->
-
-<!--        .search-form {-->
-<!--            margin-top: 20px;-->
-<!--        }-->
-<!--        .search-input {-->
-<!--            width: 300px;-->
-<!--            padding: 5px;-->
-<!--        }-->
-<!--        .search-button {-->
-<!--            padding: 5px 10px;-->
-<!--            background-color: #007bff;-->
-<!--            color: #fff;-->
-<!--            border: none;-->
-<!--            cursor: pointer;-->
-<!--        }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h2>Post List</h2>-->
-
-<!--<div>-->
-<!--    <form class="search-form" th:action="@{/posts}" method="get">-->
-<!--        <input class="search-input" type="text" name="search" placeholder="Search by Title or Author"-->
-<!--               th:value="${search}">-->
-<!--        <button class="search-button" type="submit">Search</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<div sec:authorize="isAuthenticated()">-->
-<!--    <form th:action="@{/logout}" method="post">-->
-<!--        <input type="submit" value="logout">-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<div>-->
-<!--    <form sec:authorize="!isAuthenticated()" th:action="@{/loginForm}">-->
-<!--        <button>login</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<br>-->
-<!--<div sec:authorize="isAuthenticated()">-->
-<!--    <a th:href="@{/Draft}">All Drafts</a>-->
-<!--</div>-->
-<!--<br>-->
-
-<!--    <div sec:authorize="isAuthenticated()">-->
-<!--        <h1>Welcome, <span th:text="${loggedInUser}"></span>!</h1></div>-->
-<!--    </div>-->
-
-<!--<br>-->
-<!--<div sec:authorize="isAuthenticated()">-->
-<!--    <a th:href="@{/allPublishedPost}">All Published Post</a>-->
-<!--</div>-->
-<!--<br>-->
-
-<!--<div>-->
-<!--    <form th:action="@{/posts}" method="get">-->
-<!--        <h2>Filter by Authors</h2>-->
-<!--        <span th:each="author : ${authors}">-->
-<!--            <input type="checkbox" id="author" name="author" th:value="${author}" />-->
-<!--            <label th:for="author" th:text="${author}"></label>-->
-<!--        </span><br>-->
-
-<!--        <h2>Filter by Tags</h2>-->
-<!--        <span th:each="tag : ${tags}">-->
-<!--            <input type="checkbox" id="tag" name="tag" th:value="${tag}" />-->
-<!--            <label th:for="tag" th:text="${tag}"></label>-->
-<!--        </span><br><br>-->
-
-<!--        <button type="submit">Apply Filter</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-
-
-<!--<div>-->
-<!--    <form th:action="@{/posts}" method="get">-->
-<!--        <label for="sortField">Sort By : </label>-->
-<!--        <select id="sortField" name="sortField">-->
-<!--            <option value="publishedAt">Published At</option>-->
-<!--        </select>-->
-
-<!--        <label for="sortOrder">Sort Order :</label>-->
-<!--        <Select id="sortOrder" name="sortOrder">-->
-<!--            <option value="desc">Newest to Oldest</option>-->
-<!--        </Select>-->
-
-<!--        <button type="submit">Apply</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-
-
-<!--<table>-->
-<!--    <tr class="page-item">-->
-<!--        <th>Title : </th>-->
-<!--        <th>Author : </th>-->
-<!--        <th>Excerpt : </th>-->
-<!--        <th>Tags : </th>-->
-<!--        <th>Actions : </th>-->
-<!--    </tr>-->
-<!--    <tr th:each="post : ${posts}">-->
-<!--        <td th:text="${post.title}"></td>-->
-<!--        <td th:text="${post.author}"></td>-->
-<!--        <td th:text="${post.excerpt}"></td>-->
-<!--        <td>-->
-<!--                <span th:each="tag : ${post.tags}">-->
-<!--                    <span th:text="${tag.name}"></span>-->
-<!--                </span>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <a class="page-link" th:href="@{/view/{id} (id=${post.id})}">View Post</a>-->
-<!--            <div sec:authorize="isAuthenticated()">-->
-<!--                <div th:if="${(post.author == #authentication.principal.username)}">-->
-<!--                    <a class="page-link" th:href="@{/edit/{id} (id=${post.id})}">Edit Post</a>-->
-<!--                    <a class="page-link" th:href="@{/delete/{id} (id=${post.id})}"-->
-<!--                       onclick="return confirm('Are you sure you want to delete this post ?')">Delete Post</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--</table><br><br>-->
-
-<!--<div>-->
-<!--    <a th:if="${currentPage > 0}" th:href="@{/posts(page=${currentPage - 1}, sortField=${param.sortField}, sortOrder=${param.sortOrder}, search=${param.search}, authors=${param.authors}, tags=${param.tags})}">Previous</a>-->
-
-<!--    <a th:if="${currentPage < totalPages - 1}" th:href="@{/posts(page=${currentPage + 1}, sortField=${param.sortField}, sortOrder=${param.sortOrder}, search=${param.search}, authors=${param.authors}, tags=${param.tags})}">Next</a>-->
-
-<!--</div><br><br>-->
-
-<!--<div><a th:href="@{/createForm}">Create New Post</a></div>-->
-<!--</body>-->
-<!--</html>-->
-
-
-
-
-
-
-
-
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml"-->
-<!--      xmlns:th="http://www.thymeleaf.org"-->
-<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
-<!--<head>-->
-<!--    <style>-->
-<!--        body {-->
-<!--            font-family: Arial, sans-serif;-->
-<!--            background-color: #f0f0f0;-->
-<!--            color: #333;-->
-<!--            padding: 20px;-->
-<!--        }-->
-
-<!--        h2 {-->
-<!--            background-color: #333;-->
-<!--            color: #fff;-->
-<!--            padding: 10px;-->
-<!--            border-radius: 5px;-->
-<!--        }-->
-
-<!--        h1 {-->
-<!--            background-color: #333;-->
-<!--            color: #fff;-->
-<!--            padding: 10px;-->
-<!--            border-radius: 5px;-->
-<!--            text-align: center;-->
-<!--        }-->
-
-<!--        .search-form {-->
-<!--            margin-bottom: 20px;-->
-<!--        }-->
-
-<!--        .search-input {-->
-<!--            width: 70%;-->
-<!--            padding: 10px;-->
-<!--            margin-right: 10px;-->
-<!--            border: 1px solid #ccc;-->
-<!--            border-radius: 3px;-->
-<!--        }-->
-
-<!--        .search-button {-->
-<!--            background-color: #333;-->
-<!--            color: #fff;-->
-<!--            border: none;-->
-<!--            border-radius: 3px;-->
-<!--            padding: 10px 20px;-->
-<!--            cursor: pointer;-->
-<!--        }-->
-
-<!--        .search-button:hover {-->
-<!--            background-color: #555;-->
-<!--        }-->
-
-<!--        .actions-form {-->
-<!--            margin-top: 10px;-->
-<!--            margin-bottom: 10px;-->
-<!--        }-->
-
-<!--        .actions-form button {-->
-<!--            background-color: #333;-->
-<!--            color: #fff;-->
-<!--            border: none;-->
-<!--            border-radius: 3px;-->
-<!--            padding: 10px 20px;-->
-<!--            cursor: pointer;-->
-<!--            margin-right: 10px;-->
-<!--        }-->
-
-<!--        .actions-form button:hover {-->
-<!--            background-color: #555;-->
-<!--        }-->
-
-<!--        a {-->
-<!--            display: inline-block;-->
-<!--            margin-top: 10px;-->
-<!--            text-decoration: none;-->
-<!--            color: #333;-->
-<!--        }-->
-
-<!--        a:hover {-->
-<!--            text-decoration: underline;-->
-<!--        }-->
-
-<!--        table {-->
-<!--            border-collapse: collapse;-->
-<!--            width: 100%;-->
-<!--        }-->
-
-<!--        th, td {-->
-<!--            border: 1px solid #ccc;-->
-<!--            padding: 8px;-->
-<!--            text-align: left;-->
-<!--        }-->
-
-<!--        th {-->
-<!--            background-color: #333;-->
-<!--            color: #fff;-->
-<!--        }-->
-
-<!--        .page-link {-->
-<!--            text-decoration: none;-->
-<!--            color: #333;-->
-<!--            padding: 5px 10px;-->
-<!--            border: 1px solid #ccc;-->
-<!--            border-radius: 3px;-->
-<!--            margin-right: 5px;-->
-<!--        }-->
-
-<!--        .page-link:hover {-->
-<!--            background-color: #333;-->
-<!--            color: #fff;-->
-<!--        }-->
-
-<!--        .actions {-->
-<!--            display: flex;-->
-<!--        }-->
-
-<!--        .actions a {-->
-<!--            text-decoration: none;-->
-<!--            color: #333;-->
-<!--            margin-right: 10px;-->
-<!--        }-->
-
-<!--        .actions a:hover {-->
-<!--            text-decoration: underline;-->
-<!--        }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Blog Application</h1>-->
-
-<!--<div>-->
-<!--    <form class="search-form" th:action="@{/posts}" method="get">-->
-<!--        <input class="search-input" type="text" name="search" placeholder="Search by Title or Author"-->
-<!--               th:value="${search}">-->
-<!--        <button class="search-button" type="submit">Search</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<div sec:authorize="isAuthenticated()">-->
-<!--    <form th:action="@{/logout}" method="post" class="actions-form">-->
-<!--        <button>Logout</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<div>-->
-<!--    <form sec:authorize="!isAuthenticated()" th:action="@{/loginForm}" class="actions-form">-->
-<!--        <button>Login</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<div sec:authorize="isAuthenticated()">-->
-<!--    <a th:href="@{/Draft}">All Drafts</a>-->
-<!--</div>-->
-
-<!--<div sec:authorize="isAuthenticated()">-->
-<!--    <h1>Welcome, <span th:text="${loggedInUser}"></span>!</h1>-->
-<!--</div>-->
-
-<!--<div sec:authorize="isAuthenticated()">-->
-<!--    <a th:href="@{/allPublishedPost}">All Published Post</a>-->
-<!--</div>-->
-
-<!--<div>-->
-<!--    <form th:action="@{/posts}" method="get" class="actions-form">-->
-<!--        <h2>Filter by Authors</h2>-->
-<!--        <span th:each="author : ${authors}">-->
-<!--                <input type="checkbox" id="author" name="author" th:value="${author}" />-->
-<!--                <label th:for="author" th:text="${author}"></label>-->
-<!--            </span><br>-->
-
-<!--        <h2>Filter by Tags</h2>-->
-<!--        <span th:each="tag : ${tags}">-->
-<!--                <input type="checkbox" id="tag" name="tag" th:value="${tag}" />-->
-<!--                <label th:for="tag" th:text="${tag}"></label>-->
-<!--            </span><br><br>-->
-
-<!--        <h2>Filter by Date Range</h2>-->
-<!--        <label for="dateFrom">From:</label>-->
-<!--        <input type="date" id="dateFrom" name="dateFrom">-->
-
-<!--        <label for="dateTo">To:</label>-->
-<!--        <input type="date" id="dateTo" name="dateTo"><br><br>-->
-
-<!--        <button type="submit">Apply Filter</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<div>-->
-<!--    <form th:action="@{/posts}" method="get" class="actions-form">-->
-<!--        <label for="sortField">Sort By : </label>-->
-<!--        <select id="sortField" name="sortField">-->
-<!--            <option value="publishedAt">Published At</option>-->
-<!--        </select>-->
-
-<!--        <label for="sortOrder">Sort Order :</label>-->
-<!--        <select id="sortOrder" name="sortOrder">-->
-<!--            <option value="desc">Newest to Oldest</option>-->
-<!--        </select>-->
-
-<!--        <button type="submit">Apply</button>-->
-<!--    </form>-->
-<!--</div>-->
-
-<!--<table>-->
-<!--    <tr class="page-item">-->
-<!--        <th>Title : </th>-->
-<!--        <th>Author : </th>-->
-<!--        <th>Excerpt : </th>-->
-<!--        <th>Tags : </th>-->
-<!--        <th>Actions : </th>-->
-<!--    </tr>-->
-<!--    <tr th:each="post : ${posts}">-->
-<!--        <td th:text="${post.title}"></td>-->
-<!--        <td th:text="${post.author}"></td>-->
-<!--        <td th:text="${post.excerpt}"></td>-->
-<!--        <td>-->
-<!--                <span th:each="tag : ${post.tags}">-->
-<!--                    <span th:text="${tag.name}"></span>-->
-<!--                </span>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <a class="page-link" th:href="@{/view/{id} (id=${post.id})}">View Post</a>-->
-<!--            <div sec:authorize="isAuthenticated()">-->
-<!--                <div th:if="${(post.author == #authentication.principal.username)}">-->
-<!--                    <a class="page-link" th:href="@{/edit/{id} (id=${post.id})}">Edit Post</a>-->
-<!--                    <a class="page-link" th:href="@{/delete/{id} (id=${post.id})}"-->
-<!--                       onclick="return confirm('Are you sure you want to delete this post ?')">Delete Post</a>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </td>-->
-<!--    </tr>-->
-<!--</table>-->
-
-<!--<div>-->
-<!--    <a th:if="${currentPage > 0}" th:href="@{/posts(page=${currentPage - 1}, sortField=${param.sortField}, sortOrder=${param.sortOrder}, search=${param.search}, authors=${param.authors}, tags=${param.tags})}">Previous</a>-->
-
-<!--    <a th:if="${currentPage < totalPages - 1}" th:href="@{/posts(page=${currentPage + 1}, sortField=${param.sortField}, sortOrder=${param.sortOrder}, search=${param.search}, authors=${param.authors}, tags=${param.tags})}">Next</a>-->
-<!--</div>-->
-
-<!--<div><a th:href="@{/createForm}">Create New Post</a></div>-->
-<!--</body>-->
-<!--</html>-->
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <style>
         body {
@@ -583,21 +123,21 @@
 </div>
 
 <div>
-    <form class="search-form" th:action="@{/posts}" method="get">
-        <input class="search-input" type="text" name="search" placeholder="Search by Title or Author"
-               th:value="${search}">
+    <form class="search-form" method="get" th:action="@{/posts}">
+        <input class="search-input" name="search" placeholder="Search by Title or Author" th:value="${search}"
+               type="text">
         <button class="search-button" type="submit">Search</button>
     </form>
 </div>
 
 <div sec:authorize="isAuthenticated()">
-    <form th:action="@{/logout}" method="post" class="actions-form">
+    <form class="actions-form" method="post" th:action="@{/logout}">
         <button>Logout</button>
     </form>
 </div>
 
 <div>
-    <form sec:authorize="!isAuthenticated()" th:action="@{/loginForm}" class="actions-form">
+    <form class="actions-form" sec:authorize="!isAuthenticated()" th:action="@{/loginForm}">
         <button>Login</button>
     </form>
 </div>
@@ -611,32 +151,32 @@
 </div>
 
 <div>
-    <form th:action="@{/posts}" method="get" class="actions-form">
+    <form class="actions-form" method="get" th:action="@{/posts}">
         <h2>Filter by Authors</h2>
         <span th:each="author : ${authors}">
-                <input type="checkbox" id="author" name="author" th:value="${author}" />
+                <input id="author" name="author" th:value="${author}" type="checkbox"/>
                 <label th:for="author" th:text="${author}"></label>
             </span><br>
 
         <h2>Filter by Tags</h2>
         <span th:each="tag : ${tags}">
-                <input type="checkbox" id="tag" name="tag" th:value="${tag}" />
+                <input id="tag" name="tag" th:value="${tag}" type="checkbox"/>
                 <label th:for="tag" th:text="${tag}"></label>
             </span><br><br>
 
         <h2>Filter by Date Range</h2>
         <label for="dateFrom">From:</label>
-        <input type="date" id="dateFrom" name="dateFrom">
+        <input id="dateFrom" name="dateFrom" type="date">
 
         <label for="dateTo">To:</label>
-        <input type="date" id="dateTo" name="dateTo"><br><br>
+        <input id="dateTo" name="dateTo" type="date"><br><br>
 
         <button type="submit">Apply Filter</button>
     </form>
 </div>
 
 <div>
-    <form th:action="@{/posts}" method="get" class="actions-form">
+    <form class="actions-form" method="get" th:action="@{/posts}">
         <label for="sortField">Sort By : </label>
         <select id="sortField" name="sortField">
             <option value="publishedAt">Published At</option>
@@ -652,7 +192,7 @@
 </div>
 
 <div class="post-matrix">
-    <div th:each="post : ${posts}" class="post-card">
+    <div class="post-card" th:each="post : ${posts}">
         <h3>Title : <span th:text="${post.title}"></span></h3>
         <p><strong>Author : </strong><span th:text="${post.author}"></span></p>
         <p><strong>Excerpt : </strong><span th:text="${post.excerpt}"></span></p>
@@ -666,17 +206,19 @@
             <div sec:authorize="isAuthenticated()">
                 <div th:if="${(post.author == #authentication.principal.username) or #authorization.expression('hasRole(''ADMIN'')')}">
                     <a class="page-link" th:href="@{/edit/{id} (id=${post.id})}">Edit Post</a>
-                    <a class="page-link" th:href="@{/delete/{id} (id=${post.id})}"
-                       onclick="return confirm('Are you sure you want to delete this post ?')">Delete Post</a>
+                    <a class="page-link" onclick="return confirm('Are you sure you want to delete this post ?')"
+                       th:href="@{/delete/{id} (id=${post.id})}">Delete Post</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<a th:if="${currentPage > 0}" th:href="@{/posts(page=${currentPage - 1}, sortField=${param.sortField}, sortOrder=${param.sortOrder}, search=${param.search}, authors=${param.authors}, tags=${param.tags})}">Previous</a>
+<a th:href="@{/posts(page=${currentPage - 1}, sortField=${param.sortField}, sortOrder=${param.sortOrder}, search=${param.search}, authors=${param.authors}, tags=${param.tags})}"
+   th:if="${currentPage > 0}">Previous</a>
 
-<a th:if="${currentPage < totalPages - 1}" th:href="@{/posts(page=${currentPage + 1}, sortField=${param.sortField}, sortOrder=${param.sortOrder}, search=${param.search}, authors=${param.authors}, tags=${param.tags})}">Next</a>
+<a th:href="@{/posts(page=${currentPage + 1}, sortField=${param.sortField}, sortOrder=${param.sortOrder}, search=${param.search}, authors=${param.authors}, tags=${param.tags})}"
+   th:if="${currentPage < totalPages - 1}">Next</a>
 
 <div><a th:href="@{/createForm}">Create New Post</a></div>
 </body>

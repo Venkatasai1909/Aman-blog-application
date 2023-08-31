@@ -1,103 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en"-->
-<!--      xmlns="http://www.w3.org/1999/xhtml"-->
-<!--      xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>My Published Posts</title>-->
-<!--    <style>-->
-<!--        body {-->
-<!--            font-family: Arial, sans-serif;-->
-<!--            margin: 20px;-->
-<!--            padding: 0;-->
-<!--            background-color: #f0f0f0;-->
-<!--        }-->
-<!--        h2 {-->
-<!--            color: #333;-->
-<!--        }-->
-<!--        table {-->
-<!--            width: 100%;-->
-<!--            border-collapse: collapse;-->
-<!--            margin-top: 20px;-->
-<!--        }-->
-
-<!--        table, tr.page-item, th {-->
-<!--            border: 1px solid #ddd;-->
-<!--        }-->
-
-<!--        th {-->
-<!--            background-color: #f2f2f2;-->
-<!--            padding: 10px;-->
-<!--            text-align: left;-->
-<!--        }-->
-
-<!--        td {-->
-<!--            padding: 10px;-->
-<!--        }-->
-<!--        a.page-link {-->
-<!--            text-decoration: none;-->
-<!--            color: #007bff;-->
-<!--            margin-right: 10px;-->
-<!--        }-->
-
-<!--        a.page-link:hover {-->
-<!--            text-decoration: underline;-->
-<!--            color: #0056b3;-->
-<!--        }-->
-<!--        .confirmation-message {-->
-<!--            color: #ff0000;-->
-<!--            font-weight: bold;-->
-<!--        }-->
-<!--        a.create-post-link {-->
-<!--            display: block;-->
-<!--            margin-top: 20px;-->
-<!--            background-color: #007bff;-->
-<!--            color: #fff;-->
-<!--            padding: 10px 20px;-->
-<!--            border-radius: 5px;-->
-<!--            text-align: center;-->
-<!--            text-decoration: none;-->
-<!--        }-->
-
-<!--        a.create-post-link:hover {-->
-<!--            background-color: #0056b3;-->
-<!--        }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--    <h2>My Published Posts</h2>-->
-<!--    <table>-->
-<!--        <tr class="page-item">-->
-<!--            <th>Title : </th>-->
-<!--            <th>Author : </th>-->
-<!--            <th>Excerpt : </th>-->
-<!--            <th>Tags : </th>-->
-<!--            <th>Actions : </th>-->
-<!--        </tr>-->
-<!--        <tr th:each="post : ${allPublishPost}">-->
-<!--            <td th:text="${post.title}"></td>-->
-<!--            <td th:text="${post.author}"></td>-->
-<!--            <td th:text="${post.excerpt}"></td>-->
-<!--            <td>-->
-<!--                <span th:each="tag : ${post.tags}">-->
-<!--                    <span th:text="${tag.name}"></span>-->
-<!--                </span>-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                <a class="page-link" th:href="@{/viewDraft/{id} (id=${post.id})}">View Post</a>-->
-<!--                <a class="page-link" th:href="@{/editDraft/{id} (id=${post.id})}">Edit Post</a>-->
-<!--                <a class="page-link" th:href="@{/deleteDraft/{id} (id=${post.id})}"-->
-<!--                   onclick="return confirm('Are you sure you want to delete this post ?')">Delete Post</a>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--    </table>-->
-<!--</body>-->
-<!--</html>-->
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
@@ -171,11 +71,11 @@
 <h2>My Published Posts</h2>
 <table>
     <tr class="page-item">
-        <th>Title : </th>
-        <th>Author : </th>
-        <th>Excerpt : </th>
-        <th>Tags : </th>
-        <th>Actions : </th>
+        <th>Title :</th>
+        <th>Author :</th>
+        <th>Excerpt :</th>
+        <th>Tags :</th>
+        <th>Actions :</th>
     </tr>
     <tr th:each="post : ${allPublishPost}">
         <td th:text="${post.title}"></td>
@@ -189,8 +89,8 @@
         <td class="actions">
             <a class="page-link" th:href="@{/viewDraft/{id} (id=${post.id})}">View Post</a>
             <a class="page-link" th:href="@{/editDraft/{id} (id=${post.id})}">Edit Post</a>
-            <a class="page-link" th:href="@{/deleteDraft/{id} (id=${post.id})}"
-               onclick="return confirm('Are you sure you want to delete this post ?')">Delete Post</a>
+            <a class="page-link" onclick="return confirm('Are you sure you want to delete this post ?')"
+               th:href="@{/deleteDraft/{id} (id=${post.id})}">Delete Post</a>
         </td>
     </tr>
 </table>

@@ -1,87 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml"-->
-<!--      xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Edit Comment</title>-->
-<!--    <style>-->
-<!--        body {-->
-<!--            font-family: Arial, sans-serif;-->
-<!--            margin: 20px;-->
-<!--            padding: 0;-->
-<!--            background-color: #f0f0f0;-->
-<!--        }-->
-<!--        h2 {-->
-<!--            color: #333;-->
-<!--        }-->
-<!--        form {-->
-<!--            background-color: #fff;-->
-<!--            padding: 20px;-->
-<!--            border: 1px solid #ddd;-->
-<!--            border-radius: 5px;-->
-<!--            margin-bottom: 20px;-->
-<!--        }-->
-<!--        label {-->
-<!--            display: block;-->
-<!--            margin-top: 10px;-->
-<!--            font-weight: bold;-->
-<!--        }-->
-<!--        input[type="text"] {-->
-<!--            width: 100%;-->
-<!--            padding: 10px;-->
-<!--            margin-top: 5px;-->
-<!--            border: 1px solid #ddd;-->
-<!--            border-radius: 5px;-->
-<!--        }-->
-<!--        button[type="submit"] {-->
-<!--            background-color: #007bff;-->
-<!--            color: #fff;-->
-<!--            padding: 10px 20px;-->
-<!--            border: none;-->
-<!--            border-radius: 5px;-->
-<!--            cursor: pointer;-->
-<!--            margin-top: 15px;-->
-<!--        }-->
-
-<!--        button[type="submit"]:hover {-->
-<!--            background-color: #0056b3;-->
-<!--        }-->
-<!--        a {-->
-<!--            text-decoration: none;-->
-<!--            color: #007bff;-->
-<!--        }-->
-
-<!--        a:hover {-->
-<!--            text-decoration: underline;-->
-<!--            color: #0056b3;-->
-<!--        }-->
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h2>Edit Post</h2>-->
-<!--<form th:action="@{/updateComment}" method="post">-->
-<!--    <input type="hidden" name="id" th:value="${comment.id}">-->
-
-<!--    <label for="name">Name : </label>-->
-<!--    <input type="text" id="name" name="name" th:value="${comment.name}" readonly required>-->
-
-<!--    <label for="email">Email : </label>-->
-<!--    <input type="text" id="email" name="email" th:value="${comment.email}" readonly required>-->
-
-<!--    <label for="comment">Comment : </label>-->
-<!--    <input type="text" id="comment" name="Comment" th:value="${comment.Comment}" required>-->
-
-<!--    <button type="submit">Update Post</button>-->
-<!--</form>-->
-
-<!--<a th:href="@{/posts}">Back to Post List</a>-->
-<!--</body>-->
-<!--</html>-->
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
@@ -152,17 +68,17 @@
 </head>
 <body>
 <h2>Edit Comment</h2>
-<form th:action="@{/updateComment}" method="post">
-    <input type="hidden" name="id" th:value="${comment.id}">
+<form method="post" th:action="@{/updateComment}">
+    <input name="id" th:value="${comment.id}" type="hidden">
 
     <label for="name">Name : </label>
-    <input type="text" id="name" name="name" th:value="${comment.name}" readonly required>
+    <input id="name" name="name" readonly required th:value="${comment.name}" type="text">
 
     <label for="email">Email : </label>
-    <input type="text" id="email" name="email" th:value="${comment.email}" readonly required>
+    <input id="email" name="email" readonly required th:value="${comment.email}" type="text">
 
     <label for="comment">Comment : </label>
-    <input type="text" id="comment" name="Comment" th:value="${comment.Comment}" required>
+    <input id="comment" name="Comment" required th:value="${comment.Comment}" type="text">
 
     <button type="submit">Update Comment</button>
 </form>
