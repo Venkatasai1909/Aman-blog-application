@@ -1,0 +1,309 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml"-->
+<!--      xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>View Post</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            margin: 20px;-->
+<!--            padding: 0;-->
+<!--            background-color: #f0f0f0;-->
+<!--        }-->
+
+<!--        h2 {-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        h3 {-->
+<!--            color: #555;-->
+<!--        }-->
+
+<!--        div {-->
+<!--            background-color: #fff;-->
+<!--            padding: 20px;-->
+<!--            border: 1px solid #ddd;-->
+<!--            border-radius: 5px;-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+
+<!--        table {-->
+<!--            width: 100%;-->
+<!--            border-collapse: collapse;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        table, th, td {-->
+<!--            border: 1px solid #ddd;-->
+<!--        }-->
+
+<!--        th, td {-->
+<!--            padding: 10px;-->
+<!--            text-align: left;-->
+<!--        }-->
+
+<!--        th {-->
+<!--            background-color: #f2f2f2;-->
+<!--        }-->
+
+<!--        a {-->
+<!--            text-decoration: none;-->
+<!--            color: #007bff;-->
+<!--            margin-right: 10px;-->
+<!--        }-->
+
+<!--        a:hover {-->
+<!--            text-decoration: underline;-->
+<!--            color: #0056b3;-->
+<!--        }-->
+
+<!--        .back-link {-->
+<!--            display: block;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--        .add-comment-link {-->
+<!--            display: block;-->
+<!--            margin-top: 20px;-->
+<!--            background-color: #007bff;-->
+<!--            color: #fff;-->
+<!--            padding: 10px 20px;-->
+<!--            border-radius: 5px;-->
+<!--            text-align: center;-->
+<!--            text-decoration: none;-->
+<!--        }-->
+
+<!--        .add-comment-link:hover {-->
+<!--            background-color: #0056b3;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h2>View Post</h2>-->
+<!--<div>-->
+<!--    <p>Title : <span><h3 th:text="${post.title}"></h3></span></p>-->
+<!--    <p>Content : <span th:text="${post.content}"></span></p>-->
+<!--    <p>Author : <span th:text="${post.author}"></span></p>-->
+<!--    <p>Tags :-->
+<!--        <span th:each="tag : ${post.tags}">-->
+<!--            <span th:text="${tag.name}"></span>-->
+<!--        </span>-->
+<!--    </p>-->
+<!--    <p>Created at : <span th:text="${post.createdAt}"></span></p>-->
+<!--    <p>Updated at : <span th:text="${post.updatedAt}"></span></p>-->
+<!--</div>-->
+
+
+<!--<h2>View Comment</h2>-->
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>Name : </th>-->
+<!--        <th>Email : </th>-->
+<!--        <th>Comment : </th>-->
+<!--        <th>Actions : </th>-->
+<!--    </tr>-->
+
+<!--    <tr th:each="comment:${comments}">-->
+<!--        <td th:text="${comment.name}"></td>-->
+<!--        <td th:text="${comment.email}"></td>-->
+<!--        <td th:text="${comment.comment}"></td>-->
+
+<!--        <td sec:authorize="isAuthenticated()">-->
+<!--            <div th:if="${(comment.name == #authentication.principal.username)}">-->
+<!--                <a th:href="@{/editComment/{id} (id=${comment.id})}">Edit Comment</a>-->
+<!--                <a th:href="@{/deleteComment/{id} (id=${comment.id})}"-->
+<!--                   onclick="return confirm('Are you sure you want to delete this comment ?')">Delete Comment</a>-->
+<!--            </div>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--</table>-->
+
+<!--<br>-->
+<!--<br>-->
+<!--    <form th:action="@{/addComment}" method="post">-->
+<!--        <label for="name">Name : </label>-->
+<!--        <input type="text" id="name" name="name" required><br>-->
+
+<!--        <label for="email">Email : </label>-->
+<!--        <input type="email" id="email" name="email" required><br>-->
+
+<!--        <label for="comment">Comment : </label>-->
+<!--        <textarea id="comment" name="Comment" required></textarea><br>-->
+
+<!--        <input type="hidden" name="postId" th:value="${post.id}">-->
+<!--        <button type="submit">Add Comment</button>-->
+<!--    </form>-->
+
+<!--<br>-->
+<!--<a th:href="@{/posts}" class="back-link">Back to Post List</a>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+        }
+
+        h2 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        div {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .actions a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+<h2>View Post</h2>
+<div>
+    <p>Title : <span th:text="${post.title}"></span></p>
+    <p>Content : <span th:text="${post.content}"></span></p>
+    <p>Author : <span th:text="${post.author}"></span></p>
+    <p>Tags :
+        <span th:each="tag : ${post.tags}">
+                <span th:text="${tag.name}"></span>
+            </span>
+    </p>
+    <p>Created at : <span th:text="${post.createdAt}"></span></p>
+    <p>Updated at : <span th:text="${post.updatedAt}"></span></p>
+</div>
+
+<h2>View Comment</h2>
+<table>
+    <tr>
+        <th>Name : </th>
+        <th>Email : </th>
+        <th>Comment : </th>
+        <th>Actions : </th>
+    </tr>
+    <tr th:each="comment:${comments}">
+        <td th:text="${comment.name}"></td>
+        <td th:text="${comment.email}"></td>
+        <td th:text="${comment.comment}"></td>
+        <td sec:authorize="isAuthenticated()" class="actions">
+            <div th:if="${(comment.name == #authentication.principal.username) or #authorization.expression('hasRole(''ADMIN'')')}">
+                <a th:href="@{/editComment/{id} (id=${comment.id})}">Edit Comment</a>
+                <a th:href="@{/deleteComment/{id} (id=${comment.id})}"
+                   onclick="return confirm('Are you sure you want to delete this comment ?')">Delete Comment</a>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<h2>Add Comment</h2>
+<form th:action="@{/addComment}" method="post">
+
+    <input type="text" placeholder="name" name="name" required><br>
+
+    <input type="email" placeholder="email" name="email" required><br>
+
+    <textarea placeholder="comment" name="Comment" required></textarea><br>
+
+    <input type="hidden" name="postId" th:value="${post.id}">
+
+    <button type="submit">Add Comment</button>
+</form>
+
+<a th:href="@{/posts}" class="back-link">Back to Post List</a>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Background color */
+            color: #333; /* Text color */
+        }
+
+        .login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form {
+            background-color: #fff; /* Form background color */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            width: 300px;
+        }
+
+        .form h3 {
+            text-align: center;
+        }
+
+        .form input[type="text"],
+        .form input[type="email"],
+        .form input[type="password"] {
+            width: 91%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc; /* Input border color */
+            border-radius: 3px;
+        }
+
+        .form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #333; /* Submit button background color */
+            color: #fff; /* Submit button text color */
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .form input[type="submit"]:hover {
+            background-color: #555; /* Submit button background color on hover */
+        }
+
+        .message {
+            text-align: center;
+        }
+
+        .message a {
+            color: #333; /* Link text color */
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+<body>
+<div class="login-page">
+    <div class="form">
+        <div class="login">
+            <div login-header>
+                <h3>Register Form</h3>
+            </div>
+        </div>
+
+        <form method="post" th:action="@{/signup}">
+            <input name="username" placeholder="username" required type="text"><br><br>
+
+            <input name="email" placeholder="email" required type="email"><br><br>
+
+            <input name="password" placeholder="password" required type="password"><br><br>
+
+            <input name="confirm-password" placeholder="confirm-password" required type="password"><br><br>
+
+            <input type="submit" value="Register"><br><br>
+
+            <p class="message">Already have an account?
+                <a th:href="@{/loginForm}">Login</a>
+            </p>
+        </form>
+    </div>
+</div>
+</body>
+</html>

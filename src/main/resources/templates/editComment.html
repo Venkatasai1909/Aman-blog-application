@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+        }
+
+        h2 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        form {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[readonly] {
+            background-color: #f0f0f0;
+        }
+
+        button[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<h2>Edit Comment</h2>
+<form method="post" th:action="@{/updateComment}">
+    <input name="id" th:value="${comment.id}" type="hidden">
+
+    <label for="name">Name : </label>
+    <input id="name" name="name" readonly required th:value="${comment.name}" type="text">
+
+    <label for="email">Email : </label>
+    <input id="email" name="email" readonly required th:value="${comment.email}" type="text">
+
+    <label for="comment">Comment : </label>
+    <input id="comment" name="Comment" required th:value="${comment.Comment}" type="text">
+
+    <button type="submit">Update Comment</button>
+</form>
+
+<a th:href="@{/posts}">Back to Post List</a>
+</body>
+</html>

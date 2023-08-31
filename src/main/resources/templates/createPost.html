@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+        }
+
+        h2 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        form {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<h2>Create a New Post</h2>
+<form method="post" th:action="@{/publishOrDraft}">
+    <label for="title">Title : </label>
+    <input id="title" name="title" required type="text"><br>
+
+    <label for="content">Content : </label>
+    <textarea id="content" name="Content" required></textarea><br>
+
+    <label for="author">Author : </label>
+    <input id="author" name="author" required type="text"><br>
+
+    <label for="excerpt">Excerpt : </label>
+    <input id="excerpt" name="excerpt" required type="text"><br>
+
+    <label for="tag">Tags (Comma Separated) : </label>
+    <input id="tag" name="tag" placeholder="Enter tags separated by comma" required type="text"><br>
+
+    <button name="postCreated" type="submit" value="publishPost">Publish Post</button>
+    <button name="postCreated" type="submit" value="draftPost">Draft Post</button>
+</form>
+
+<a th:href="@{/posts}">Back to Post List</a>
+</body>
+</html>
