@@ -50,8 +50,13 @@ public class PostController {
 
     @GetMapping("/createForm")
     public String createPostForm(Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUser = authentication.getName();
+
         Post post = new Post();
         model.addAttribute("post", post);
+        model.addAttribute("loggedInUser",loggedInUser);
         return "createPost";
     }
 
